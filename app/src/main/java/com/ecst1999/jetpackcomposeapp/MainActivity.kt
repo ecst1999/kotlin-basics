@@ -10,8 +10,11 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.ecst1999.jetpackcomposeapp.components.layouts.EjercicioBox
 import com.ecst1999.jetpackcomposeapp.components.layouts.MyBox
 import com.ecst1999.jetpackcomposeapp.components.layouts.MyColumn
+import com.ecst1999.jetpackcomposeapp.components.layouts.MyComplexLayout
+import com.ecst1999.jetpackcomposeapp.components.layouts.MyRow
 import com.ecst1999.jetpackcomposeapp.login.Greeting
 import com.ecst1999.jetpackcomposeapp.ui.theme.JetPackComposeAppTheme
 
@@ -22,7 +25,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             JetPackComposeAppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    MyColumn(Modifier.padding(innerPadding))
+                    EjercicioBox(Modifier.padding(innerPadding))
                 }
             }
         }
