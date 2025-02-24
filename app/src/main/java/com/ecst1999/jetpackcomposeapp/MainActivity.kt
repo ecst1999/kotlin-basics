@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.ecst1999.jetpackcomposeapp.components.layouts.EjercicioBox
+import com.ecst1999.jetpackcomposeapp.components.layouts.MyBasicConstraintLayout
 import com.ecst1999.jetpackcomposeapp.components.layouts.MyBox
 import com.ecst1999.jetpackcomposeapp.components.layouts.MyColumn
 import com.ecst1999.jetpackcomposeapp.components.layouts.MyComplexLayout
@@ -25,7 +26,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             JetPackComposeAppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    EjercicioBox(Modifier.padding(innerPadding))
+                    MyBasicConstraintLayout(Modifier.padding(innerPadding))
                 }
             }
         }
