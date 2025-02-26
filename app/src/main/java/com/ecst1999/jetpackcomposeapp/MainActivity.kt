@@ -21,6 +21,7 @@ import com.ecst1999.jetpackcomposeapp.components.layouts.MyComplexLayout
 import com.ecst1999.jetpackcomposeapp.components.layouts.MyConstraintLayout2
 import com.ecst1999.jetpackcomposeapp.components.layouts.MyRow
 import com.ecst1999.jetpackcomposeapp.login.Greeting
+import com.ecst1999.jetpackcomposeapp.state.MyState
 import com.ecst1999.jetpackcomposeapp.ui.theme.JetPackComposeAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -30,7 +31,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             JetPackComposeAppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    ConstraintChain(Modifier.padding(innerPadding))
+                    MyState(Modifier.padding(innerPadding))
                 }
             }
         }
