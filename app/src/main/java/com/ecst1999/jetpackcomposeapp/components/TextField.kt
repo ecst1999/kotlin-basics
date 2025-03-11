@@ -4,9 +4,13 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -37,6 +41,8 @@ fun MyTextFieldParent(modifier: Modifier) {
         }
         MyAdvanceTextField(value) { value = it }
         MyPasswordTextField(value) { value = it }
+        Spacer(modifier.height(20.dp))
+        MyOutlineTextField(value) { value = it}
     }
 }
 
@@ -95,4 +101,12 @@ fun MyPasswordTextField(value: String, onValueChange: (String) -> Unit) {
                 modifier = Modifier.clickable { passwordHidden = !passwordHidden })
         }
     )
+}
+
+@Composable
+fun MyOutlineTextField(value: String, onValueChange: (String) -> Unit) {
+
+    //OutlinedTextField(value = value, onValueChange = { onValueChange(it) })
+
+    BasicTextField(value = value, onValueChange = { onValueChange(it) })
 }

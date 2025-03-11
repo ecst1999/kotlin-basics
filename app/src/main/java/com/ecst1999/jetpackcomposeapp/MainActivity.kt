@@ -10,6 +10,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.ecst1999.jetpackcomposeapp.components.MyButtons
 import com.ecst1999.jetpackcomposeapp.components.MyText
 import com.ecst1999.jetpackcomposeapp.components.MyTextField
 import com.ecst1999.jetpackcomposeapp.components.MyTextFieldParent
@@ -34,7 +35,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             JetPackComposeAppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    MyTextFieldParent(Modifier.padding(innerPadding))
+                    MyButtons(Modifier.padding(innerPadding))
                 }
             }
         }
