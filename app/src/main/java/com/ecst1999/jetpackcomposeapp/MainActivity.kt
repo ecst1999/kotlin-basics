@@ -11,9 +11,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.ecst1999.jetpackcomposeapp.components.MyButtons
+import com.ecst1999.jetpackcomposeapp.components.MyControl
 import com.ecst1999.jetpackcomposeapp.components.MyIcon
 import com.ecst1999.jetpackcomposeapp.components.MyImage
 import com.ecst1999.jetpackcomposeapp.components.MyProgress
+import com.ecst1999.jetpackcomposeapp.components.MySwitch
 import com.ecst1999.jetpackcomposeapp.components.MyText
 import com.ecst1999.jetpackcomposeapp.components.MyTextField
 import com.ecst1999.jetpackcomposeapp.components.MyTextFieldParent
@@ -38,7 +40,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             JetPackComposeAppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    MyProgress(Modifier.padding(innerPadding))
+                    MyControl(Modifier.padding(innerPadding))
                 }
             }
         }
