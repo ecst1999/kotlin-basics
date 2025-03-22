@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.ecst1999.jetpackcomposeapp.components.MyButtons
+import com.ecst1999.jetpackcomposeapp.components.MyCardsMain
 import com.ecst1999.jetpackcomposeapp.components.MyControl
 import com.ecst1999.jetpackcomposeapp.components.MyIcon
 import com.ecst1999.jetpackcomposeapp.components.MyImage
@@ -40,7 +41,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             JetPackComposeAppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    MyControl(Modifier.padding(innerPadding))
+                    MyCardsMain(Modifier.padding(innerPadding))
                 }
             }
         }

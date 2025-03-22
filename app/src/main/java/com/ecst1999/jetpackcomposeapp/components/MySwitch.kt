@@ -3,13 +3,18 @@ package com.ecst1999.jetpackcomposeapp.components
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
+import androidx.compose.material3.RadioButton
+import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.TriStateCheckbox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -17,6 +22,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.unit.dp
 import com.ecst1999.jetpackcomposeapp.CheckInfo
 
@@ -25,19 +31,101 @@ fun MyControl(modifier: Modifier) {
 
     val myOptions = getOptions(listOf("Aris", "Ejemplo", "Pikachu"))
 
+    var selected by rememberSaveable { mutableStateOf("ecst") }
+
     Column(modifier.padding(top = 30.dp)) {
+        MyRadioButtonList(selected){selected = it}
         MySwitch()
         MyCheckBox()
         MyCheckBoxWithText()
         MyCheckBoxWithText()
-        myOptions.forEach{
+        MyTritStatusCheckBox()
+        myOptions.forEach {
             MyCheckBoxWithTextCompleted(it)
         }
+        MyRadioButton()
+
     }
 }
 
 @Composable
-fun getOptions(titles:List<String>):List<CheckInfo>{
+fun MyTritStatusCheckBox() {
+    var status by rememberSaveable { mutableStateOf(ToggleableState.Off) }
+
+    TriStateCheckbox(state = status, onClick = {
+        status = when (status) {
+            ToggleableState.On -> {
+                ToggleableState.Off
+            }
+
+            ToggleableState.Off -> ToggleableState.Indeterminate
+            ToggleableState.Indeterminate -> ToggleableState.On
+        }
+    })
+}
+
+@Composable
+fun MyRadioButton() {
+
+    Row (Modifier.fillMaxSize()) {
+        RadioButton(
+            selected = false,
+            enabled = false,
+            onClick = {},
+            colors = RadioButtonDefaults.colors(
+                selectedColor = Color.Red,
+                unselectedColor = Color.Yellow,
+                disabledSelectedColor = Color.Green,
+                disabledUnselectedColor = Color.Blue
+            )
+        )
+        Text("Ejemplo 1")
+    }
+
+}
+
+@Composable
+fun MyRadioButtonList(name: String, onItemSelected:(String) -> Unit){
+
+
+    Column {
+        Row {
+            RadioButton(
+                selected = name == "ecst",
+                onClick = { onItemSelected("ecst") },
+            )
+            Text("ecst")
+        }
+
+        Row {
+            RadioButton(
+                selected = name == "David",
+                onClick = {onItemSelected("David")},
+            )
+            Text("David")
+        }
+
+        Row {
+            RadioButton(
+                selected = name == "Karlita",
+                onClick = {onItemSelected("Karlita")},
+            )
+            Text("Karlita")
+        }
+
+        Row {
+            RadioButton(
+                selected = name == "Daniela",
+                onClick = {onItemSelected("Daniela")},
+            )
+            Text("Daniela")
+        }
+    }
+
+}
+
+@Composable
+fun getOptions(titles: List<String>): List<CheckInfo> {
 
     return titles.map {
         var status by rememberSaveable { mutableStateOf(false) }
