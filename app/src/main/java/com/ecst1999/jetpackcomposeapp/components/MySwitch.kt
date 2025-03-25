@@ -20,6 +20,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.state.ToggleableState
@@ -34,7 +35,7 @@ fun MyControl(modifier: Modifier) {
     var selected by rememberSaveable { mutableStateOf("ecst") }
 
     Column(modifier.padding(top = 30.dp)) {
-        MyRadioButtonList(selected){selected = it}
+        MyRadioButtonList(selected) { selected = it }
         MySwitch()
         MyCheckBox()
         MyCheckBoxWithText()
@@ -67,7 +68,7 @@ fun MyTritStatusCheckBox() {
 @Composable
 fun MyRadioButton() {
 
-    Row (Modifier.fillMaxSize()) {
+    Row(Modifier.fillMaxSize()) {
         RadioButton(
             selected = false,
             enabled = false,
@@ -85,40 +86,52 @@ fun MyRadioButton() {
 }
 
 @Composable
-fun MyRadioButtonList(name: String, onItemSelected:(String) -> Unit){
+fun MyRadioButtonList(name: String, onItemSelected: (String) -> Unit) {
 
 
     Column {
-        Row {
+        Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(6.dp)) {
             RadioButton(
                 selected = name == "ecst",
                 onClick = { onItemSelected("ecst") },
+                colors = RadioButtonDefaults.colors(
+                    Color.Black
+                )
             )
-            Text("ecst")
+            Text("ecst", color = Color.Black)
         }
 
-        Row {
+        Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(6.dp)) {
             RadioButton(
                 selected = name == "David",
-                onClick = {onItemSelected("David")},
+                onClick = { onItemSelected("David") },
+                colors = RadioButtonDefaults.colors(
+                    Color.Black
+                )
             )
-            Text("David")
+            Text("David", color = Color.Black)
         }
 
-        Row {
+        Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(6.dp)) {
             RadioButton(
                 selected = name == "Karlita",
-                onClick = {onItemSelected("Karlita")},
+                onClick = { onItemSelected("Karlita") },
+                colors = RadioButtonDefaults.colors(
+                    Color.Black
+                )
             )
-            Text("Karlita")
+            Text("Karlita", color = Color.Black)
         }
 
-        Row {
+        Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(6.dp)) {
             RadioButton(
                 selected = name == "Daniela",
-                onClick = {onItemSelected("Daniela")},
+                onClick = { onItemSelected("Daniela") },
+                colors = RadioButtonDefaults.colors(
+                    Color.Black
+                )
             )
-            Text("Daniela")
+            Text("Daniela", color = Color.Black)
         }
     }
 
