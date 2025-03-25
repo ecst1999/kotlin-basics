@@ -16,6 +16,7 @@ import com.ecst1999.jetpackcomposeapp.components.MyControl
 import com.ecst1999.jetpackcomposeapp.components.MyIcon
 import com.ecst1999.jetpackcomposeapp.components.MyImage
 import com.ecst1999.jetpackcomposeapp.components.MyProgress
+import com.ecst1999.jetpackcomposeapp.components.MySlider
 import com.ecst1999.jetpackcomposeapp.components.MySwitch
 import com.ecst1999.jetpackcomposeapp.components.MyText
 import com.ecst1999.jetpackcomposeapp.components.MyTextField
@@ -41,7 +42,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             JetPackComposeAppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    MyCardsMain(Modifier.padding(innerPadding))
+                    MyDialogs(Modifier.padding(innerPadding))
                 }
             }
         }
