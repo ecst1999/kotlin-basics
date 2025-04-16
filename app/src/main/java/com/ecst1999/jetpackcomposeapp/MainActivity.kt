@@ -37,6 +37,7 @@ import com.ecst1999.jetpackcomposeapp.components.layouts.MyColumn
 import com.ecst1999.jetpackcomposeapp.components.layouts.MyComplexLayout
 import com.ecst1999.jetpackcomposeapp.components.layouts.MyConstraintLayout2
 import com.ecst1999.jetpackcomposeapp.components.layouts.MyRow
+import com.ecst1999.jetpackcomposeapp.components.layouts.MyScaffold
 import com.ecst1999.jetpackcomposeapp.login.Greeting
 import com.ecst1999.jetpackcomposeapp.state.MyState
 import com.ecst1999.jetpackcomposeapp.ui.theme.JetPackComposeAppTheme
@@ -46,8 +47,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             JetPackComposeAppTheme {
+                enableEdgeToEdge()
                 Surface (modifier = Modifier.fillMaxSize()) {
-                    SuperHeroStickyView()
+                    MyScaffold()
                 }
             }
         }
