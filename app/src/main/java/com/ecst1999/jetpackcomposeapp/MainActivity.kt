@@ -5,41 +5,17 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.ecst1999.jetpackcomposeapp.components.MyButtons
-import com.ecst1999.jetpackcomposeapp.components.MyCardsMain
-import com.ecst1999.jetpackcomposeapp.components.MyControl
-import com.ecst1999.jetpackcomposeapp.components.MyIcon
-import com.ecst1999.jetpackcomposeapp.components.MyImage
-import com.ecst1999.jetpackcomposeapp.components.MyProgress
-import com.ecst1999.jetpackcomposeapp.components.MySlider
-import com.ecst1999.jetpackcomposeapp.components.MySwitch
-import com.ecst1999.jetpackcomposeapp.components.MyText
-import com.ecst1999.jetpackcomposeapp.components.MyTextField
-import com.ecst1999.jetpackcomposeapp.components.MyTextFieldParent
-import com.ecst1999.jetpackcomposeapp.components.SimpleRecyclerView
-import com.ecst1999.jetpackcomposeapp.components.SuperHeroGridView
-import com.ecst1999.jetpackcomposeapp.components.SuperHeroStickyView
-import com.ecst1999.jetpackcomposeapp.components.SuperHeroView
-import com.ecst1999.jetpackcomposeapp.components.SuperHeroWithSpecialControlsView
-import com.ecst1999.jetpackcomposeapp.components.layouts.ConstraintAvanzado
-import com.ecst1999.jetpackcomposeapp.components.layouts.ConstraintBarrier
-import com.ecst1999.jetpackcomposeapp.components.layouts.ConstraintChain
-import com.ecst1999.jetpackcomposeapp.components.layouts.EjercicioBox
-import com.ecst1999.jetpackcomposeapp.components.layouts.MyBasicConstraintLayout
-import com.ecst1999.jetpackcomposeapp.components.layouts.MyBox
-import com.ecst1999.jetpackcomposeapp.components.layouts.MyColumn
-import com.ecst1999.jetpackcomposeapp.components.layouts.MyComplexLayout
-import com.ecst1999.jetpackcomposeapp.components.layouts.MyConstraintLayout2
-import com.ecst1999.jetpackcomposeapp.components.layouts.MyRow
-import com.ecst1999.jetpackcomposeapp.components.layouts.MyScaffold
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.ecst1999.jetpackcomposeapp.login.Greeting
-import com.ecst1999.jetpackcomposeapp.state.MyState
+import com.ecst1999.jetpackcomposeapp.navigation.Screen1
+import com.ecst1999.jetpackcomposeapp.navigation.Screen2
+import com.ecst1999.jetpackcomposeapp.navigation.Screen3
 import com.ecst1999.jetpackcomposeapp.ui.theme.JetPackComposeAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -49,7 +25,15 @@ class MainActivity : ComponentActivity() {
             JetPackComposeAppTheme {
                 enableEdgeToEdge()
                 Surface (modifier = Modifier.fillMaxSize()) {
-                    MyScaffold()
+
+                    val navigationController = rememberNavController()
+
+                    NavHost(navController = navigationController, startDestination = "pantalla1"){
+                        composable("pantalla1"){ Screen1(navigationController) }
+                        composable("pantalla2"){ Screen2(navigationController) }
+                        composable("pantalla3"){ Screen3(navigationController) }
+                    }
+
                 }
             }
         }
