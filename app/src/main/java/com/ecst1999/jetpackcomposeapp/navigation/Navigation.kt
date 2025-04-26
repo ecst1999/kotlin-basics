@@ -1,5 +1,12 @@
 package com.ecst1999.jetpackcomposeapp.navigation
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.Crossfade
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -8,8 +15,10 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.SensorDoor
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
@@ -21,13 +30,20 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.LargeFloatingActionButton
 import androidx.compose.material3.SmallFloatingActionButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.ecst1999.jetpackcomposeapp.model.Routes
+import kotlin.random.Random.Default.nextInt
 
 
 @Composable
@@ -42,12 +58,13 @@ fun Screen1(navigationController: NavHostController) {
         MyFilledTonalButton(Modifier.align(Alignment.CenterHorizontally))
         MyElevatedTonalButton(Modifier.align(Alignment.CenterHorizontally))
 
-        Text(
-            "Pantalla 1", Modifier
-                .align(Alignment.CenterHorizontally)
-                .clickable {
-                    navigationController.navigate(Routes.Pantalla2.route)
-                }, color = Color.White
+        TextButton(
+            onClick = {
+                navigationController.navigate(Routes.Pantalla2.route)
+            },
+            content = { Text("Pantalla 1") },
+            modifier = Modifier.align(Alignment.CenterHorizontally)
+
         )
         MyFloatingActionButton()
     }
@@ -57,17 +74,56 @@ fun Screen1(navigationController: NavHostController) {
 
 @Composable
 fun Screen2(navigationController: NavHostController) {
-    Box(
+
+    var firstColor by rememberSaveable { mutableStateOf(false) }
+    val realColor = if (firstColor) Color.Magenta else Color.Yellow
+    var showBox by rememberSaveable { mutableStateOf(true) }
+
+    var secondColor by rememberSaveable { mutableStateOf(false) }
+    val realColor2 by animateColorAsState(
+        if (secondColor) Color.Green else Color.Blue,
+        animationSpec = tween(durationMillis = 2000),
+        finishedListener = { showBox = !showBox }
+
+    )
+
+    Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Red)
+            .background(Color.White)
     ) {
+
+        Box(
+            modifier = Modifier
+                .size(100.dp)
+                .background(realColor)
+                .clickable {
+                    firstColor = !firstColor
+                }
+        )
+
+        Spacer(Modifier.size(200.dp))
+
+        if (showBox) {
+            Box(
+                modifier = Modifier
+                    .size(100.dp)
+                    .background(realColor2)
+                    .clickable {
+                        secondColor = !secondColor
+                    }
+            )
+        }
+
+
         Text(
             "Pantalla 2", Modifier
-                .align(Alignment.Center)
+                .align(Alignment.CenterHorizontally)
                 .clickable {
                     navigationController.navigate(Routes.Pantalla3.route)
-                }, color = Color.White
+                },
+            color = Color.DarkGray,
+            fontSize = 20.sp
         )
 
     }
@@ -76,18 +132,25 @@ fun Screen2(navigationController: NavHostController) {
 
 @Composable
 fun Screen3(navigationController: NavHostController) {
-    Box(
+    Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.Blue)
     ) {
+
         Text(
             "Pantalla 3", Modifier
-                .align(Alignment.Center)
+                .align(Alignment.CenterHorizontally)
                 .clickable {
                     navigationController.navigate(Routes.Pantalla4.createRoute(29))
-                }, color = Color.White
+                },
+            color = Color.White,
+            fontSize = 20.sp
         )
+
+        SizeAnimation()
+        VisibilityAnimation()
+        CrossfadeExampleAnimated()
     }
 }
 
@@ -175,7 +238,114 @@ fun MyFloatingActionButton() {
     Spacer(Modifier.height(8.dp))
 
     ExtendedFloatingActionButton(onClick = { print("Hello") }) {
-        Text(text ="Extended FAB")
+        Text(text = "Extended FAB")
         Icon(Icons.Filled.Favorite, "Floating action button.")
     }
 }
+
+@Composable
+fun SizeAnimation() {
+    var smallSize by rememberSaveable { mutableStateOf(true) }
+    val size by animateDpAsState(
+        if (smallSize) 50.dp else 100.dp,
+        animationSpec = tween(durationMillis = 500),
+        finishedListener = {
+            if (!smallSize) {/*TODO*/
+            }
+        }
+    )
+
+    Box(modifier = Modifier
+        .size(size)
+        .background(Color.Red)
+        .clickable {
+            smallSize = !smallSize
+        }
+    )
+}
+
+@Composable
+fun VisibilityAnimation() {
+
+    var isVisible by rememberSaveable { mutableStateOf(true) }
+
+    Column() {
+
+        Button(
+            onClick = {
+                isVisible = !isVisible
+            }
+        ) {
+            Text("Mostrar / Ocultar")
+        }
+
+        Spacer(modifier = Modifier.size(50.dp))
+
+        AnimatedVisibility(
+            isVisible,
+            enter = slideInHorizontally(),
+            exit = slideOutHorizontally()
+        ) {
+
+            Box(
+                Modifier
+                    .size(150.dp)
+                    .background(Color.Yellow)
+            )
+        }
+
+
+    }
+
+}
+
+@Composable
+fun CrossfadeExampleAnimated() {
+    var myComponentType: ComponentType by rememberSaveable { mutableStateOf(ComponentType.Text) }
+
+    Column(Modifier.fillMaxSize()) {
+
+        Button(
+            onClick = {
+                myComponentType = getComponentTypeRandom()
+            }
+        ) {
+            Text("Cambiar componente")
+        }
+
+        Crossfade(targetState = myComponentType)  {
+            when(it){
+                ComponentType.Image -> Icon(Icons.Default.SensorDoor, contentDescription = "Sensor door")
+                ComponentType.Text -> Text("Soy un componente")
+                ComponentType.Box -> Box(Modifier.size(150.dp).background(Color.Red))
+                ComponentType.Error -> Text("ERRORRRRRRRRRRR")
+            }
+        }
+
+    }
+
+
+}
+
+enum class ComponentType() {
+    Image, Text, Box, Error
+}
+
+fun getComponentTypeRandom(): ComponentType{
+    return when(nextInt(from = 0, until = 3)){
+        0 -> ComponentType.Image
+        1 -> ComponentType.Text
+        2 -> ComponentType.Box
+        else -> ComponentType.Error
+    }
+}
+
+
+
+
+
+
+
+
+
+

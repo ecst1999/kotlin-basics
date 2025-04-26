@@ -28,7 +28,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             JetPackComposeAppTheme {
-                enableEdgeToEdge()
+//                enableEdgeToEdge()
                 Surface(modifier = Modifier.fillMaxSize()) {
 
                     val navigationController = rememberNavController()
